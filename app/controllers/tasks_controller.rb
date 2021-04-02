@@ -11,9 +11,6 @@ class TasksController < ApplicationController
     @tasks = current_user.tasks
   end
 
-  # GET /tasks/:id
-  def show; end
-
   # GET /tasks/new
   def new
     @task = Task.new
@@ -26,14 +23,16 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     @task.user = current_user
-    return redirect_to @task, notice: 'Task was successfully created.' if @task.save
+    return redirect_to tasks_url, notice: 'Task was successfully created.' if @task.save
 
     render :new
   end
 
   # PATCH/PUT /tasks/:id
   def update
-    return redirect_to @task, notice: 'Task was successfully updated.' if @task.update task_params
+    if @task.update(status: params[:task][:status])
+      return redirect_to tasks_url, notice: 'Task was successfully updated.'
+    end
 
     render :edit
   end
