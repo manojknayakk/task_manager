@@ -1,31 +1,15 @@
-<h1>Tasks</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Status</th>
-      <th>Deadline</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @tasks.each do |task| %>
-      <tr>
-        <td><%= task.name %></td>
-        <td><%= task.description %></td>
-        <td><%= task.status %></td>
-        <td><%= task.deadline %></td>
-        <td><%= link_to 'Show', task %></td>
-        <td><%= link_to 'Edit', edit_task_path(task) %></td>
-        <td><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Task', new_task_path %>
+<div class='d-flex align-items-center justify-content-center m-2'>
+  <% @tasks.each do |task| %>
+    <div class="card text-center task-card m-2" style="width: 18rem;">
+      <h5 class="card-header text-end fw-normal"><%= remaining_time task.deadline %></h5>
+      <div class="card-body">
+        <h5 class="card-title text-capitalize"><%= task.name %></h5>
+        
+        <h6 class="card-subtitle mb-2 text-muted text-capitalize">Status: <%= task.status %></h6>
+        <p class="card-text description"><%= task.description %></p>
+        <%= link_to 'Edit', edit_task_path(task), class: "card-link" %>
+        <%= link_to 'Remove', task, method: :delete, data: { confirm: 'Are you sure?' }, class: "card-link" %>
+      </div>
+    </div>
+  <% end %>
+</div>
