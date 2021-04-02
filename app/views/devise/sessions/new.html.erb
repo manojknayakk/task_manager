@@ -1,26 +1,52 @@
-<h2>Log in</h2>
+<div className="auth-wrapper">
+  <div className="auth-inner">
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'row g-2' }) do |f| %>
+      <h3>Sign In</h3>
+      <div class="row g-2">
+        <div class="col-md">
+          <div class="form-floating">
+            <%= f.email_field :email, autofocus: true, autocomplete: 'email', class: 'form-control', placeholder:'name@example.com' %>
+            <%= f.label :email %>
+          </div>
+        </div>
+      </div>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+      <div class="row g-2">
+        <div class="col-md">
+          <div class="form-floating">
+            <%= f.password_field :password, autofocus: true, autocomplete: 'current-password', class: 'form-control', placeholder:'*********' %>
+            <%= f.label :password %>
+          </div>
+        </div>
+      </div>
+
+      <div className="row g-2">
+        <div className="col-md">
+          <div className="form-check text-start">
+            <%= f.check_box :remember_me, class: 'form-check-input' %>
+            <%= f.label :remember_me, class: 'form-check-label' %>
+          </div>
+        </div>
+        <div className="col-md">
+          <div className="form-group text-end">
+            <%= link_to "Forgot your password?", new_password_path(resource_name), class: 'forgot-password' %>
+          </div>
+        </div>
+      </div>
+
+      <div className="row g-2">
+        <div className="col-md">
+          <%= f.submit "Log in", class: 'btn btn-primary btn-block w-100' %>
+        </div>
+      </div>
+
+      <div className="row g-2 m-0">
+        <div className="col-md">
+          <p className="signup-link fw-bold text-end">
+            Don't have a account? <%= link_to "Signup", new_registration_path(resource_name) %>
+          </p>
+        </div>
+      </div>
+    <% end %>
   </div>
-
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
-
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
-    </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>
