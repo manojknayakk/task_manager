@@ -35,5 +35,6 @@
 yarn-debug.log*
 .yarn-integrity
 
-.env*
+.env.development.local
+.env.test.local
 .rvmrc
