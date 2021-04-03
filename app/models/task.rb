@@ -6,4 +6,7 @@ class Task < ApplicationRecord
   validates_presence_of :name, :description, :status, :deadline
   validates :status, inclusion: { in: %w[backlog inprogress done] }
 
+  def done?
+    status == 'done'
+  end
 end
