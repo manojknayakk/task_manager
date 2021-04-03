@@ -23,7 +23,10 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     @task.user = current_user
-    return redirect_to tasks_url, notice: 'Task was successfully created.' if @task.save
+    if @task.save
+      send_mails
+      return redirect_to tasks_url, notice: 'Task was successfully created.'
+    end
 
     render :new
   end
@@ -54,5 +57,12 @@ class TasksController < ApplicationController
 
   def task_params
     params.require(:task).permit(:name, :description, :status, :deadline)
+  end
+
+  def send_mails
+    return unless Date.current < @task.deadline
+
+    TaskNotificationJob.set(wait_until: @task.deadline.yesterday.to_datetime).perform_later(@task)
+    TaskNotificationJob.set(wait_until: @task.deadline - 1.hour).perform_later(@task)
   end
 end
