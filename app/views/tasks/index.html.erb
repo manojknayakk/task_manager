@@ -1,7 +1,7 @@
-<div class='d-flex align-items-center justify-content-center m-2'>
+<div class='d-flex align-items-center justify-content-center m-2 flex-wrap'>
   <% @tasks.each do |task| %>
-    <div class="card text-center task-card m-2" style="width: 18rem;">
-      <h5 class="card-header text-end fw-normal"><%= remaining_time task.deadline %></h5>
+    <div class="card text-center task-card m-2" style="min-width: 20rem;">
+      <h5 class="card-header text-end fw-normal fs-6"><%= remaining_time task.deadline %></h5>
       <div class="card-body">
         <h5 class="card-title text-capitalize"><%= task.name %></h5>
         
